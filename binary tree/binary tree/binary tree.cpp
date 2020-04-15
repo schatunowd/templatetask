@@ -1,195 +1,179 @@
-﻿#include<vector>
-#include<iostream>
-#include<string>
+﻿#include "iostream"
+#include "vector"
 using namespace std;
 
-template<class T>
-class BinaryTree
+template<typename t> class BinaryTree
 {
-public:
-	BinaryTree():node(nullptr) {}
-	~BinaryTree();
-	void addvertex(T);
-	void deletevertex(T);
-	bool contains(T);
-	vector<T> getleaflist();
-	operator string();
-
 private:
-	struct Node
+	struct point
 	{
-		T data;
-		Node* leftchild;
-		Node* rightchild;
-		Node(T _data) :data(_data), leftchild(nullptr), rightchild(nullptr) {}
+		t value;
+		int parent = -1;
+		int leftchild = -1;
+		int rightchild = -1;
 	};
-	Node* node;
-	void dispose(Node*);
-	void addvertex(T, Node*&);
-	void deletevertex(T, Node*&);
-	bool contains(T, Node*);
-	void getleaflist(Node*, vector<T>&);
-	string binarytreestring(Node*);
-};
 
-template<class T>
-BinaryTree<T>::~BinaryTree()
-{
-	if (node)
-		this->dispose(this->node);
-}
-
-template<class T>
-void BinaryTree<T>::dispose(Node* root)
-{
-	if (root)
+	vector<point> tree;
+public:
+	BinaryTree(t value)
 	{
-		dispose(root->left);
-		dispose(root->right);
-		delete root;
+		point x;
+		x.value = value;
+		tree.push_back(x);
 	}
-}
-
-template<class T>
-void BinaryTree<T>::addvertex(T data)
-{
-	if (node == nullptr)
+	void Push(t value)
 	{
-		node = new Node(data);
-	}
-	else
-	{
-		this->addvertex(data, node);
-	}
-}
+		point x;
+		x.value = value;
 
-template<class T>
-void BinaryTree<T>::addvertex(T data, Node*& node)
-{
-	if (node == nullptr)
-		node = new Node(data);
-	else
-		if (data < node->data)
-			this->add(data, node->left);
-		else
-			if (data > node->data)
-				this->add(data, node->right);
-}
-
-template<class T>
-string BinaryTree<T>::binarytreestring(Node* node) 
-{
-	string leftStr = (node->left == nullptr) ? "{}" : binarytreestring(node->left);
-	string rightStr = (node->right == nullptr) ? "{}" : binarytreestring(node->right);
-	string result = "{" + to_string(node->data) + ", " + leftStr + ", " + rightStr + "}";
-	return result;
-}
-
-template<class T>
-void BinaryTree<T>::deletevertex(T data)
-{
-	this->deletevertex(data, this->node);
-}
-
-template<class T>
-void BinaryTree<T>::deletevertex(T data, Node*& root) 
-{
-	if (root == nullptr) 
-		cout << "Not found";
-	if (data > root->data) 
-		del(data, root->right);
-	else 
-		if (data < root->data) 
-			del(data, root->left);
-		else
+		bool b = true;
+		int i = 0;
+		while (b)
 		{
-			Node* temp = root;
-			if (temp->right == nullptr && temp->left == nullptr)
-				root = nullptr;
-			else
-				if (temp->right == nullptr && temp->left != nullptr)
-					root = temp->left;
+			if (x.value <= tree[i].value)
+			{
+				if (tree[i].leftchild == -1)
+				{
+					tree[i].leftchild = tree.size();
+					x.parent = i;
+					tree.push_back(x);
+					b = false;
+				}
 				else
-					if (temp->left == nullptr && temp->right != nullptr)
-						root = temp->right;
+					i = tree[i].leftchild;
+			}
+			else
+			{
+				if (tree[i].rightchild == -1)
+				{
+					tree[i].rightchild = tree.size();
+					x.parent = i;
+					tree.push_back(x);
+					b = false;
+				}
+				else
+					i = tree[i].rightchild;
+			}
+		}
+
+	}
+	void Pop(t value)
+	{
+		int i = this->Contains(value);
+		if (i != -1)
+		{
+			if (tree[i].leftchild == -1 && tree[i].rightchild == -1)
+				tree.erase(tree.begin() + i);
+			else
+				if (tree[i].leftchild == -1)
+				{
+					int j = tree[i].rightchild;
+
+					tree[i].value = tree[tree[i].rightchild].value;
+					tree[i].value = tree[tree[i].rightchild].rightchild;
+					tree[i].value = tree[tree[i].rightchild].leftchild;
+					tree[tree[i].rightchild].parent = i;
+					tree.erase(tree.begin() + j);
+				}
+				else
+					if (tree[i].rightchild == -1)
+					{
+						int j = tree[i].leftchild;
+						tree[i].value = tree[tree[i].leftchild].value;
+						tree[i].value = tree[tree[i].leftchild].rightchild;
+						tree[i].value = tree[tree[i].leftchild].leftchild;
+						tree[tree[i].leftchild].parent = i;
+						tree.erase(tree.begin() + j);
+					}
 					else
 					{
-						Node* maxNode = temp->left;
-						while (maxNode->right) maxNode = maxNode->right;
-						temp->data = maxNode->data;
-						del(maxNode->data, temp->left);
+						int j = tree[i].rightchild;
+						tree[i].value = tree[tree[i].rightchild].value;
+						tree[i].value = tree[tree[i].rightchild].rightchild;
+						int z = tree[i].leftchild;
+						int z1 = tree[i].leftchild;
+						tree[i].value = tree[tree[i].rightchild].leftchild;
+						tree[tree[i].rightchild].parent = i;
+						tree[tree[i].leftchild].parent = i;
+						tree.erase(tree.begin() + j);
+						while (tree[z].leftchild != -1)
+						{
+							z = tree[z].leftchild;
+						}
+						tree[z].leftchild = z1;
+						tree[tree[z].leftchild].parent = z;
 					}
 		}
-	   
-}
-
-template<class T>
-bool BinaryTree<T>::contains(T data)
-{
-	return contains(data, node);
-}
-
-template<class T>
-bool BinaryTree<T>::contains(T data, Node* root)
-{
-	if (root == nullptr) 
-		return false;
-	else 
-		if (root->data == data) 
-			return true;
-	    else 
-			if (data > root->data) 
-				return contains(data, root->right);
-	        else 
-				return contains(data, root->left);
-}
-
-template<class T>
-vector<T> BinaryTree<T>::getleaflist()
-{
-	vector<T> leafList;
-	getleaflist(this->node, leafList);
-	return leafList;
-}
-
-template<class T>
-void BinaryTree<T>::getleaflist(Node* root, vector<T>& leaf)
-{
-	if (root->left == nullptr && root->right == nullptr)
-	{
-		leaf.push_back(root->data);
 	}
-	else
+	void Print()
 	{
-		if (root->left) 
-			getleaflist(root->left, leaf);
-		else
-			getleaflist(root->right, leaf);
+		for (int i = 0; i < tree.size(); i++)
+			cout << tree[i].value << ' ';
+		cout << endl;
 	}
-}
+	int Contains(t value)
+	{
+		int i = 0;
+		bool b = true;
+		int r = -1;
+		while (b)
+		{
+			if (value < tree[i].value)
+			{
+				if (tree[i].value == value)
+				{
+					b = false;
+					r = i;
+				}
+				else
+					if (tree[i].leftchild == -1)
+						b = false;
+					else
+						i = tree[i].leftchild;
+			}
+			else
+			{
+				if (tree[i].value == value)
+				{
+					b = false;
+					r = i;
+				}
+				else
+					if (tree[i].rightchild == -1)
+						b = false;
+					else
+						i = tree[i].rightchild;
+			}
+		}
+		return r;
+	}
 
-template<class T>
-BinaryTree<T>::operator string()
-{
-	if (node == nullptr)
-		return "{}";
-	else 
-		return this->binarytreestring(this->node);
-}
-
+	void GetLeaf()
+	{
+		for (int i = 0; i < tree.size(); i++)
+			if (tree[i].leftchild == -1 && tree[i].rightchild == -1)
+				cout << tree[i].value << ' ';
+		cout << endl;
+	}
+	~BinaryTree()
+	{	}
+};
 int main()
 {
-	BinaryTree <int> binarytree;
-	binarytree.addvertex(10);
-	binarytree.addvertex(1);
-	binarytree.addvertex(5);
-	binarytree.addvertex(6);
-	binarytree.addvertex(8);
+	BinaryTree <int> binarytree(5);
+	binarytree.Push(10);
+	binarytree.Push(1);
+	binarytree.Push(5);
+	binarytree.Push(6);
+	binarytree.Push(12);
 	cout << "Your binary tree: ";
-	binarytree.operator std::string;
-	binarytree.deletevertex(10);
-	if (binarytree.contains(12))
-		binarytree.deletevertex(12);
+	binarytree.Print();
+	if (binarytree.Contains(12))
+		binarytree.Pop(12);
 	else
 		cout << "Binary tree does not contain this element";
+	cout << "Updated binary tree: ";
+	binarytree.Print();
+	cout << "List of leaves: ";
+	binarytree.GetLeaf();
 }
