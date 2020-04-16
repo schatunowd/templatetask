@@ -1,88 +1,93 @@
-﻿#include <iostream>
+﻿#pragma once
+#include <iostream>
+#include <stdexcept>
 using namespace std;
+
+template <class T>
+class Stack;
+template<class T>
+Stack<T> StackMerge(const Stack<T>& first, const Stack<T>& second);
 
 template<class T>
 class Stack
 {
 private:
 	int size;
-	T* arr;
+	T* array;
 	int head;
-	bool empty()
+	bool Empty()
 	{
 		if (head == size)
 			return true;
 		else
 			return false;
 	}
-	bool overflow()
+	bool Full()
 	{
 		if (head == 0)
 			return true;
 		else
 			return false;
 	}
-
 public:
 	Stack(int size)
 	{
 		this->size = size;
-		this->arr = new T[this->size];
+		this->array = new T[this->size];
 		this->head = size;
 	}
 	Stack(const Stack& stack)
 	{
 		this->size = stack.size;
-		this->arr = new T[this->size];
+		this->array = new T[this->size];
 		this->head = stack.head;
 	}
 
 	~Stack()
 	{
-		delete[] arr;
+		delete[] array;
 	}
 
 	void push(T element)
 	{
-		if (this->overflow())
-			cout << "Stack is overflowed";
+		if (this->Full())
+			throw std::out_of_range("Stack is full!");
 		this->head = this->head - 1;
-		this->arr[this->head] = element;
+		this->array[this->head] = element;
 	}
 
-	int pop(T elememt)
+	T pop()
 	{
-		if (this->empty())
-			cout << "Stack is empty";
-		T element = this->arr[this->head];
+		if (this->Empty())
+			throw std::out_of_range("Stack is empty!");
+		T element = this->array[this->head];
 		this->head = this->head + 1;
 		return element;
 	}
+	friend Stack StackMerge<T>(const Stack<T>& first, const Stack<T>& second);
 };
 
 template<class T>
-Stack<T> stackunion(const Stack<T>& stack1, const Stack<T>& stack2)
+Stack<T> StackMerge(const Stack<T>& first, const Stack<T>& second)
 {
-	int size = stack1.size + stack2.size;
-	Stack<T> stack3 = Stack<T>(size);
-	int i = stack1.size;
-	while (i != stack1.head)
+	int size = first.size + second.size;
+	Stack<T> stack = Stack<T>(size);
+	int index = first.size;
+	while (index != first.head)
 	{
-		i--;
-		stack.push(stack1.array[i]);
+		index = index - 1;
+		stack.push(first.array[index]);
 	}
-	i = stack2.size;
-	while (i != stack2.head)
+	index = second.size;
+	while (index != second.head)
 	{
-		i--;
-		stack.push(stack2.array[i]);
+		index = index - 1;
+		stack.push(second.array[index]);
 	}
 	return stack;
 }
-
 int main()
 {
-	int s = 10;
 	Stack <int> stack1(5);
 	Stack <int> stack2(5);
 	stack1.push(10);
@@ -95,7 +100,7 @@ int main()
 	stack2.push(12);
 	stack2.push(14);
 	stack2.push(17);
-	stack1.pop(10);
-	stack2.pop(14);
-	stackunion(stack1, stack2);
+	stack1.pop();
+	stack2.pop();
+	StackMerge(stack1, stack2);
 }
