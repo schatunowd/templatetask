@@ -1,0 +1,11 @@
+C:\Users\Дима\source\repos\binarytreecsharp\binarytreecsharp\bin\Debug\netcoreapp3.0\binarytreecsharp.exe
+C:\Users\Дима\source\repos\binarytreecsharp\binarytreecsharp\bin\Debug\netcoreapp3.0\binarytreecsharp.deps.json
+C:\Users\Дима\source\repos\binarytreecsharp\binarytreecsharp\bin\Debug\netcoreapp3.0\binarytreecsharp.runtimeconfig.json
+C:\Users\Дима\source\repos\binarytreecsharp\binarytreecsharp\bin\Debug\netcoreapp3.0\binarytreecsharp.runtimeconfig.dev.json
+C:\Users\Дима\source\repos\binarytreecsharp\binarytreecsharp\bin\Debug\netcoreapp3.0\binarytreecsharp.dll
+C:\Users\Дима\source\repos\binarytreecsharp\binarytreecsharp\bin\Debug\netcoreapp3.0\binarytreecsharp.pdb
+C:\Users\Дима\source\repos\binarytreecsharp\binarytreecsharp\obj\Debug\netcoreapp3.0\binarytreecsharp.csprojAssemblyReference.cache
+C:\Users\Дима\source\repos\binarytreecsharp\binarytreecsharp\obj\Debug\netcoreapp3.0\binarytreecsharp.AssemblyInfoInputs.cache
+C:\Users\Дима\source\repos\binarytreecsharp\binarytreecsharp\obj\Debug\netcoreapp3.0\binarytreecsharp.AssemblyInfo.cs
+C:\Users\Дима\source\repos\binarytreecsharp\binarytreecsharp\obj\Debug\netcoreapp3.0\binarytreecsharp.dll
+C:\Users\Дима\source\repos\binarytreecsharp\binarytreecsharp\obj\Debug\netcoreapp3.0\binarytreecsharp.pdb
