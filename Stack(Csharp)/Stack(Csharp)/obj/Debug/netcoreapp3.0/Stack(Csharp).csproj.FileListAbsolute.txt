@@ -1,0 +1,11 @@
+C:\Users\Дима\source\repos\Stack(Csharp)\Stack(Csharp)\bin\Debug\netcoreapp3.0\Stack(Csharp).exe
+C:\Users\Дима\source\repos\Stack(Csharp)\Stack(Csharp)\bin\Debug\netcoreapp3.0\Stack(Csharp).deps.json
+C:\Users\Дима\source\repos\Stack(Csharp)\Stack(Csharp)\bin\Debug\netcoreapp3.0\Stack(Csharp).runtimeconfig.json
+C:\Users\Дима\source\repos\Stack(Csharp)\Stack(Csharp)\bin\Debug\netcoreapp3.0\Stack(Csharp).runtimeconfig.dev.json
+C:\Users\Дима\source\repos\Stack(Csharp)\Stack(Csharp)\bin\Debug\netcoreapp3.0\Stack(Csharp).dll
+C:\Users\Дима\source\repos\Stack(Csharp)\Stack(Csharp)\bin\Debug\netcoreapp3.0\Stack(Csharp).pdb
+C:\Users\Дима\source\repos\Stack(Csharp)\Stack(Csharp)\obj\Debug\netcoreapp3.0\Stack(Csharp).csprojAssemblyReference.cache
+C:\Users\Дима\source\repos\Stack(Csharp)\Stack(Csharp)\obj\Debug\netcoreapp3.0\Stack(Csharp).AssemblyInfoInputs.cache
+C:\Users\Дима\source\repos\Stack(Csharp)\Stack(Csharp)\obj\Debug\netcoreapp3.0\Stack(Csharp).AssemblyInfo.cs
+C:\Users\Дима\source\repos\Stack(Csharp)\Stack(Csharp)\obj\Debug\netcoreapp3.0\Stack(Csharp).dll
+C:\Users\Дима\source\repos\Stack(Csharp)\Stack(Csharp)\obj\Debug\netcoreapp3.0\Stack(Csharp).pdb
